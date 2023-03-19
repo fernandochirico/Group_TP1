@@ -7,8 +7,19 @@ package group.tp;
  */
 public class Equipo {
     
-    int idEquipo = 0;
-    String nombre = "";
-    String descripcion = "";
+    int idEquipo;
+    String nombre;
+    String descripcion;
+
+    public Equipo() {
+    }
+
+    public Equipo(int idEquipo, String nombre, String descripcion) {
+        this.idEquipo = idEquipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+  
     
 }
