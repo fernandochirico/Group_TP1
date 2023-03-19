@@ -22,9 +22,8 @@ public class TP {
              String archPronostico = args[0];    
              String archResultado = args[1];
              
-        String DatoLeido = "";
-        DatoLeido = Leer.LeerArchivo(archPronostico);
-        System.out.println(DatoLeido);
-    
+      // leer archivos
+      
+      // mostrar puntos del participante
     }
  }
