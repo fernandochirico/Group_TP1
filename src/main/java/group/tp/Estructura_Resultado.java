@@ -29,6 +29,9 @@ public class Estructura_Resultado {
     @CsvBindByPosition(position = 9)
     private String r_equipo2Descripcion;
 
+    
+   // Getters
+    
     public Integer getR_idRonda() {
         return r_idRonda;
     }
@@ -69,6 +72,8 @@ public class Estructura_Resultado {
         return r_equipo2Descripcion;
     }
 
+    // Setters
+    
     public void setR_idRonda(Integer r_idRonda) {
         this.r_idRonda = r_idRonda;
     }
@@ -108,6 +113,7 @@ public class Estructura_Resultado {
     public void setR_equipo2Descripcion(String r_equipo2Descripcion) {
         this.r_equipo2Descripcion = r_equipo2Descripcion;
     }
-
+ 
+    
     
 }
