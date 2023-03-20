@@ -19,7 +19,7 @@ public class TP {
             System.exit(88);
         }
 
-        List<Estructura_Resultado> listaDeREsultados;
+        List <Estructura_Resultado> listaDeREsultados;
         try {
             // En esta primera linea definimos el archivos que va a ingresar
             listaDeREsultados = new CsvToBeanBuilder(new FileReader(args[0]))
