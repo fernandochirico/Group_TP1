@@ -9,29 +9,34 @@ import com.opencsv.bean.CsvBindByPosition;
 public class Estructura_Resultado {
 
     @CsvBindByPosition(position = 0)
-    private Integer r_idRonda;
+    private String r_Filler;
     @CsvBindByPosition(position = 1)
-    private Integer r_idPartido;
+    private Integer r_idRonda;
     @CsvBindByPosition(position = 2)
-    private Integer r_idequipo1;
+    private Integer r_idPartido;
     @CsvBindByPosition(position = 3)
-    private String r_equipo1Nombre;
+    private Integer r_idequipo1;
     @CsvBindByPosition(position = 4)
-    private String r_equipo1Descripcion;
+    private String r_equipo1Nombre;
     @CsvBindByPosition(position = 5)
-    private Integer r_equipo1Goles;
+    private String r_equipo1Descripcion;
     @CsvBindByPosition(position = 6)
-    private Integer r_equipo2Goles;
+    private Integer r_equipo1Goles;
     @CsvBindByPosition(position = 7)
-    private Integer r_idequipo2;
+    private Integer r_equipo2Goles;
     @CsvBindByPosition(position = 8)
-    private String r_equipo2Nombre;
+    private Integer r_idequipo2;
     @CsvBindByPosition(position = 9)
+    private String r_equipo2Nombre;
+    @CsvBindByPosition(position = 10)
     private String r_equipo2Descripcion;
 
-    
-   // Getters
-    
+    // Getters
+
+    public String getR_Filler() {
+        return r_Filler;
+    }
+
     public Integer getR_idRonda() {
         return r_idRonda;
     }
@@ -74,6 +79,11 @@ public class Estructura_Resultado {
 
     // Setters
     
+    
+    public void setR_Filler(String r_Filler) {
+        this.r_Filler = r_Filler;
+    }
+
     public void setR_idRonda(Integer r_idRonda) {
         this.r_idRonda = r_idRonda;
     }
@@ -113,7 +123,6 @@ public class Estructura_Resultado {
     public void setR_equipo2Descripcion(String r_equipo2Descripcion) {
         this.r_equipo2Descripcion = r_equipo2Descripcion;
     }
- 
     
     
 }

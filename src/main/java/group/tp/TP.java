@@ -1,9 +1,9 @@
 package group.tp;
 
-import com.opencsv.bean.CsvToBeanBuilder; // Biblioteca para leer un CSV
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import com.opencsv.bean.CsvToBeanBuilder; // Biblioteca para leer un CSV
 
 /**
  *
@@ -29,12 +29,12 @@ public class TP {
                     .parse();
 
             //El resultado de este metodo nos da una lista del objeto
-            /*for (Estructura_Resultado l_resultado : listaDeREsultados) {
+            for (Estructura_Resultado l_resultado : listaDeREsultados) {
                 System.out.println( l_resultado.getR_idPartido()+ ";" + l_resultado.getR_idequipo1() + ";"
                         + l_resultado.getR_equipo1Nombre()+ ";" + l_resultado.getR_equipo2Descripcion()+ ";" + l_resultado.getR_equipo1Goles() +
                         ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_idequipo2() + ";" + l_resultado.getR_equipo2Nombre() + ";"
                         + l_resultado.getR_equipo2Descripcion()  );
-            }*/
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
