@@ -15,6 +15,15 @@ public class Pronostico extends Equipo {
     public Pronostico() {
     }
 
+    public Pronostico(int idPronostico, int idPartido, int idEquipo, char gana1, char empata, char gana2) {
+        this.idPronostico = idPronostico;
+        this.idPartido = idPartido;
+        this.idEquipo = idEquipo;
+        this.gana1 = gana1;
+        this.empata = empata;
+        this.gana2 = gana2;
+    }
+
 
 
     

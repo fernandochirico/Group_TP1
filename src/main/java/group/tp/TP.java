@@ -62,6 +62,8 @@ public class TP {
                 System.out.println(l_pronostico.getP_idPronostico() + ";" + l_pronostico.getP_idPartido() + ";"
                         + l_pronostico.getP_idEquipo1() + ";" + l_pronostico.getP_gana1() + ";" + l_pronostico.getP_gana2()
                         + ";" + l_pronostico.getP_empata() + ";" + l_pronostico.getP_idEquipo2());
+                
+                Pronostico pronostico1 = new Pronostico(l_pronostico.getP_idPronostico(), l_pronostico.getP_idPartido(), l_pronostico.getP_idEquipo1(), l_pronostico.getP_gana1(), l_pronostico.getP_empata(), l_pronostico.getP_gana2());
             }
         } catch (IOException e) {
             e.printStackTrace();
