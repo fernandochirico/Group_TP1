@@ -19,18 +19,18 @@ public class TP {
             System.exit(88);
         }
 
-        System.out.println("Lectura Archivo Resultados...");
-        List<Estructura_Resultado> listaDeREsultados;
+        System.out.println("\nLectura Archivo Resultados...");
+        List<Estructura_Resultado> listaDeResultados;
         try {
             // En esta primera linea definimos el archivos que va a ingresar
-            listaDeREsultados = new CsvToBeanBuilder(new FileReader(args[0]))
+            listaDeResultados = new CsvToBeanBuilder(new FileReader(args[0]))
                     // Es necesario definir el tipo de dato que va a generar el objeto que estamos queriendo parsear a partir del CSV
                     .withType(Estructura_Resultado.class)
                     .build()
                     .parse();
 
             //El resultado de este metodo nos da una lista del objeto
-            for (Estructura_Resultado l_resultado : listaDeREsultados) {
+            for (Estructura_Resultado l_resultado : listaDeResultados) {
 
                 System.out.println(l_resultado.getR_idPartido() + ";" + l_resultado.getR_idequipo1() + ";"
                         + l_resultado.getR_equipo1Nombre() + ";" + l_resultado.getR_equipo2Descripcion() + ";" + l_resultado.getR_equipo1Goles()
@@ -39,7 +39,7 @@ public class TP {
 
                 Equipo equipo1 = new Equipo(l_resultado.getR_idequipo1(), l_resultado.getR_equipo1Nombre(), l_resultado.getR_equipo1Descripcion());
                 Equipo equipo2 = new Equipo(l_resultado.getR_idequipo2(), l_resultado.getR_equipo2Nombre(), l_resultado.getR_equipo2Descripcion());
-                Partido partido1 = new Partido(l_resultado.getR_idPartido(), l_resultado.getR_idequipo1(), l_resultado.getR_idequipo2(), l_resultado.getR_equipo1Goles(), l_resultado.getR_equipo1Goles());
+                Partido partido = new Partido(l_resultado.getR_idPartido(), l_resultado.getR_idequipo1(), l_resultado.getR_idequipo2(), l_resultado.getR_equipo1Goles(), l_resultado.getR_equipo1Goles());
 
             }
         } catch (IOException e) {
