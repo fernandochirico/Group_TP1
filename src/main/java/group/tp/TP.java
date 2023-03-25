@@ -19,7 +19,8 @@ public class TP {
             System.exit(88);
         }
 
-        List <Estructura_Resultado> listaDeREsultados;
+        System.out.println("Lectura Archivo Resultados...");
+        List<Estructura_Resultado> listaDeREsultados;
         try {
             // En esta primera linea definimos el archivos que va a ingresar
             listaDeREsultados = new CsvToBeanBuilder(new FileReader(args[0]))
@@ -30,16 +31,23 @@ public class TP {
 
             //El resultado de este metodo nos da una lista del objeto
             for (Estructura_Resultado l_resultado : listaDeREsultados) {
-                System.out.println( l_resultado.getR_idPartido()+ ";" + l_resultado.getR_idequipo1() + ";"
-                        + l_resultado.getR_equipo1Nombre()+ ";" + l_resultado.getR_equipo2Descripcion()+ ";" + l_resultado.getR_equipo1Goles() +
-                        ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_idequipo2() + ";" + l_resultado.getR_equipo2Nombre() + ";"
-                        + l_resultado.getR_equipo2Descripcion()  );
+
+                System.out.println(l_resultado.getR_idPartido() + ";" + l_resultado.getR_idequipo1() + ";"
+                        + l_resultado.getR_equipo1Nombre() + ";" + l_resultado.getR_equipo2Descripcion() + ";" + l_resultado.getR_equipo1Goles()
+                        + ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_idequipo2() + ";" + l_resultado.getR_equipo2Nombre() + ";"
+                        + l_resultado.getR_equipo2Descripcion());
+
+                Equipo equipo1 = new Equipo(l_resultado.getR_idequipo1(), l_resultado.getR_equipo1Nombre(), l_resultado.getR_equipo1Descripcion());
+                Equipo equipo2 = new Equipo(l_resultado.getR_idequipo2(), l_resultado.getR_equipo2Nombre(), l_resultado.getR_equipo2Descripcion());
+                Partido partido1 = new Partido(l_resultado.getR_idPartido(), l_resultado.getR_idequipo1(), l_resultado.getR_idequipo2(), l_resultado.getR_equipo1Goles(), l_resultado.getR_equipo1Goles());
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List <Estructura_Pronostico> listaDePronosticos;
+        System.out.println("\nLectura Archivo Pronosticos...");
+        List<Estructura_Pronostico> listaDePronosticos;
         try {
             // En esta primera linea definimos el archivos que va a ingresar
             listaDePronosticos = new CsvToBeanBuilder(new FileReader(args[1]))
@@ -50,15 +58,15 @@ public class TP {
 
             //El resultado de este metodo nos da una lista del objeto
             for (Estructura_Pronostico l_pronostico : listaDePronosticos) {
+
                 System.out.println(l_pronostico.getP_idPronostico() + ";" + l_pronostico.getP_idPartido() + ";"
-                        + l_pronostico.getP_idEquipo1() + ";" + l_pronostico.getP_gana1() + ";" + l_pronostico.getP_gana2() +
-                        ";" + l_pronostico.getP_empata() + ";" + l_pronostico.getP_idEquipo2());
-            } 
+                        + l_pronostico.getP_idEquipo1() + ";" + l_pronostico.getP_gana1() + ";" + l_pronostico.getP_gana2()
+                        + ";" + l_pronostico.getP_empata() + ";" + l_pronostico.getP_idEquipo2());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        
         // mostrar puntos del participante
     }
 }

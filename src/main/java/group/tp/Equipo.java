@@ -1,15 +1,14 @@
-
 package group.tp;
 
 /**
  *
- *@author GRUPO 13
+ * @author GRUPO 13
  */
 public class Equipo {
-    
-    int idEquipo;
-    String nombre;
-    String descripcion;
+
+    private int idEquipo;
+    private String nombre;
+    private String descripcion;
 
     public Equipo() {
     }
@@ -20,6 +19,19 @@ public class Equipo {
         this.descripcion = descripcion;
     }
 
-  
+    // Getters
+
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
     
 }
