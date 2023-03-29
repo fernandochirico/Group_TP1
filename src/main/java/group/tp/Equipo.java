@@ -10,9 +10,6 @@ public class Equipo {
     private String nombre;
     private String descripcion;
 
-    public Equipo() {
-    }
-
     public Equipo(int idEquipo, String nombre, String descripcion) {
         this.idEquipo = idEquipo;
         this.nombre = nombre;
@@ -32,6 +29,8 @@ public class Equipo {
     public String getDescripcion() {
         return descripcion;
     }
+
+   
     
     
 }

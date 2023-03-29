@@ -39,7 +39,7 @@ public class TP {
 
                 Equipo equipo1 = new Equipo(l_resultado.getR_idequipo1(), l_resultado.getR_equipo1Nombre(), l_resultado.getR_equipo1Descripcion());
                 Equipo equipo2 = new Equipo(l_resultado.getR_idequipo2(), l_resultado.getR_equipo2Nombre(), l_resultado.getR_equipo2Descripcion());
-                Partido partido = new Partido(l_resultado.getR_idPartido(), l_resultado.getR_idequipo1(), l_resultado.getR_idequipo2(), l_resultado.getR_equipo1Goles(), l_resultado.getR_equipo1Goles());
+                Partido partido1 = new Partido(l_resultado.getR_idPartido(), equipo1, equipo2, l_resultado.getR_equipo1Goles(), l_resultado.getR_equipo1Goles());
 
             }
         } catch (IOException e) {
