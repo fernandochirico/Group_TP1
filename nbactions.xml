@@ -12,7 +12,7 @@
             <properties>
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.appArgs>c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\resultados.csv c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\pronostico.csv</exec.appArgs>
+                <exec.appArgs>c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\resultados.csv c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\pronostico.csv</exec.appArgs>
                 <exec.mainClass>group.tp.TP</exec.mainClass>
                 <exec.executable>java</exec.executable>
             </properties>
@@ -29,7 +29,7 @@
             <properties>
                 <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.appArgs>c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\resultados.csv c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\pronostico.csv</exec.appArgs>
+                <exec.appArgs>c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\resultados.csv c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\pronostico.csv</exec.appArgs>
                 <exec.mainClass>group.tp.TP</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
@@ -49,7 +49,7 @@
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>group.tp.TP</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.appArgs>c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\resultados.csv c:\Curso_Java\Trabajo_Integrador_comision_144\Primera_Entrega\pronostico.csv</exec.appArgs>
+                <exec.appArgs>c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\resultados.csv c:\Curso_Java\UTN_TP\Group_TP1\src\recursos\pronostico.csv</exec.appArgs>
             </properties>
         </action>
     </actions>
