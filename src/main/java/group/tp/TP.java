@@ -64,6 +64,7 @@ public class TP {
                     .build()
                     .parse();
             boolean primerLinea = true;
+            int puntos = 0; // puntos por persona
             for (Estructura_Pronostico l_pronostico : listaDePronosticos) {
                 if (primerLinea) {
                     primerLinea = false;
@@ -76,32 +77,44 @@ public class TP {
                     Equipo equipo2 = new Equipo(l_pronostico.getP_Equipo2());
                     Partido partido = null;
 
+                    // identifico el partido que estoy leyendo en este registro y
+                    // le paso partido al constructor de la clase Partido
                     for (Partido coleccionPartido : partidos) {
                         if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
                                 && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())) {
 
                             partido = coleccionPartido;
-                        } /// ACA DEJE ver el video de la clase especia para tratar
-                        // de entender lo que hizo acá
+                        }
+
                     }
 
-                    if (l_pronostico.getP_gana1() == 'X') {
-                        ResultadoEnum resultado = ResultadoEnum.GANADOR;
+                    // le paso ResultadoEnum al constructor de la clase Partido
+                    Equipo equipo = null;
+                    ResultadoEnum resultadoPronosticado = null;
+                    if (Character.toUpperCase(l_pronostico.getP_gana1() ) == 'X') {
+                        equipo = equipo1;
+                        resultadoPronosticado = ResultadoEnum.GANADOR;
                     } else {
-                        if (l_pronostico.getP_gana2() == 'X') {
-                            ResultadoEnum resultado = ResultadoEnum.PERDEDOR;
+                        if (Character.toUpperCase(l_pronostico.getP_gana2()) == 'X') {
+                            equipo = equipo1;
+                            resultadoPronosticado = ResultadoEnum.PERDEDOR;
                         } else {
-                            ResultadoEnum resultado = ResultadoEnum.EMPATE;
+                            equipo = equipo1;
+                            resultadoPronosticado = ResultadoEnum.EMPATE;
                         }
                     }
-                    //Pronostico pronostico = new Pronostico(partido, equipo1.getNombre(), resultado);
+
+                    Pronostico pronostico = new Pronostico(partido, equipo, resultadoPronosticado);
+                    // sumo puntos 
+                    puntos = puntos + pronostico.puntos();
                 }
             }
+             // muestro puntos
+             System.out.println("\nLos puntos obtenidos por la persona fueron:" + puntos );
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");
             System.exit(1);
         }
-        // mostrar puntos del participante
     }
 }

@@ -29,10 +29,12 @@ public class Pronostico {
     }
 
     public int puntos() {
-        int puntos = 0;
         ResultadoEnum resultadoReal = partido.resultado(equipo);
-        
-        return puntos;
+        if (resultado.equals(resultadoReal)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
