@@ -6,21 +6,14 @@ package group.tp;
  */
 public class Equipo {
 
-    private int idEquipo;
     private String nombre;
     private String descripcion;
 
-    public Equipo(int idEquipo, String nombre, String descripcion) {
-        this.idEquipo = idEquipo;
+    public Equipo(String nombre) {
         this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
+         }
 
     // Getters
-
-    public int getIdEquipo() {
-        return idEquipo;
-    }
 
     public String getNombre() {
         return nombre;
@@ -30,7 +23,13 @@ public class Equipo {
         return descripcion;
     }
 
-   
-    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     
 }
