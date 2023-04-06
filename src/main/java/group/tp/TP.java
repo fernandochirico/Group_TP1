@@ -113,9 +113,9 @@ public class TP {
                         }
                     }
 
-                    //Pronostico pronostico = new Pronostico(partido, equipo, resultadoPronosticado);
+                    Pronostico pronostico = new Pronostico(partido, equipo, resultadoPronosticado);
                     // sumo puntos 
-                    //puntos = puntos + pronostico.puntos();
+                    puntos = puntos + pronostico.puntos();
                 }
             }
             // muestro puntos
