@@ -13,17 +13,28 @@ public class Estructura_Pronostico {
     //@CsvBindByPosition(position = 0)
     //private String p_filler;
     @CsvBindByPosition(position = 0)
-    private String p_Equipo1;
+    private String p_participanteNombre;
     @CsvBindByPosition(position = 1)
-    private char p_gana1;
+    private String p_idPartido;
     @CsvBindByPosition(position = 2)
-    private char p_empata;
+    private String p_Equipo1;
     @CsvBindByPosition(position = 3)
-    private char p_gana2;
+    private char p_gana1;
     @CsvBindByPosition(position = 4)
+    private char p_empata;
+    @CsvBindByPosition(position = 5)
+    private char p_gana2;
+    @CsvBindByPosition(position = 6)
     private String p_Equipo2;
 
-  
+    public String getP_participanteNombre() {
+        return p_participanteNombre;
+    }
+
+    public String getP_idPartido() {
+        return p_idPartido;
+    }
+    
 
     public String getP_Equipo1() {
         return p_Equipo1;
@@ -45,7 +56,15 @@ public class Estructura_Pronostico {
         return p_Equipo2;
     }
 
-  
+    public void setP_participanteNombre(String p_participanteNombre) {
+        this.p_participanteNombre = p_participanteNombre;
+    }
+
+    public void setP_idPartido(String p_idPartido) {
+        this.p_idPartido = p_idPartido;
+    }
+
+ 
     public void setP_Equipo1(String p_Equipo1) {
         this.p_Equipo1 = p_Equipo1;
     }

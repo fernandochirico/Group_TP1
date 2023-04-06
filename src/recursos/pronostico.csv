@@ -1,3 +1,9 @@
-Equipo1,Gana1,Empata,Gana2,Equipo2
-Argentina,x,,,Arabia Saudita
-Polonia,,x,,Mexico
+Participante,Partido id;Equipo1,Gana1,Empata,Gana2,Equipo2
+Mariana,1,Argentina,x,,,Arabia Saudita
+Mariana,2,Polonia,,x,,Mexico
+Mariana,3,Argentina,x,,,Mexico
+Mariana,4,Polonia,x,,,Arabia Saudita
+Pedro,1,Argentina,,x,,Arabia Saudita
+Pedro,2,Polonia,,,x,Mexico
+Pedro,3,Argentina,,x,,Mexico
+Pedro,4,Polonia,,,x,Arabia Saudita

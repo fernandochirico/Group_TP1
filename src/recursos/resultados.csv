@@ -1,3 +1,5 @@
-Equipo1,Goles1,Goles2,Equipo2
-Argentina,1,2,Arabia Saudita
-Polonia,0,0,Mexico
+Ronda,Partido id,Equipo1,Goles1,Goles2,Equipo2
+1,1,Argentina,1,2,Arabia Saudita
+1,2,Polonia,0,0,Mexico
+2,3,Argentina,2,1,Mexico
+2,4,Polonia,2,0,Arabia Saudita
