@@ -6,20 +6,16 @@ package group.tp;
  */
 public class Pronostico {
 
-    private Participante participante;
+    //private Participante participante;
     private Partido partido;
     private Equipo equipo;
     private ResultadoEnum resultado;
 
-    public Pronostico(Participante participante, Partido partido, Equipo equipo, ResultadoEnum resultado) {
-        this.participante = participante;
+    public Pronostico( Partido partido, Equipo equipo, ResultadoEnum resultado) {
+        
         this.partido = partido;
         this.equipo = equipo;
         this.resultado = resultado;
-    }
-
-    public Participante getParticipante() {
-        return participante;
     }
 
     public Partido getPartido() {
