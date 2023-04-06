@@ -78,7 +78,7 @@ public class TP {
                 if (primerLinea) {
                     primerLinea = false;
                 } else {
-                    System.out.println(l_pronostico.getP_participanteNombre() + ";" + l_pronostico.getP_idPartido()+ ";" + l_pronostico.getP_Equipo1() + ";"  + l_pronostico.getP_gana1()
+                    System.out.println(l_pronostico.getP_ronda() + ";" + l_pronostico.getP_participanteNombre() + ";" + l_pronostico.getP_idPartido()+ ";" + l_pronostico.getP_Equipo1() + ";"  + l_pronostico.getP_gana1()
                             + ";" + l_pronostico.getP_empata()
                             + ";" + l_pronostico.getP_gana2() + ";" + l_pronostico.getP_Equipo2());
 

@@ -1,9 +1,5 @@
-Participante,Partido id;Equipo1,Gana1,Empata,Gana2,Equipo2
-Mariana,1,Argentina,x,,,Arabia Saudita
-Mariana,2,Polonia,,x,,Mexico
-Mariana,3,Argentina,x,,,Mexico
-Mariana,4,Polonia,x,,,Arabia Saudita
-Pedro,1,Argentina,,x,,Arabia Saudita
-Pedro,2,Polonia,,,x,Mexico
-Pedro,3,Argentina,,x,,Mexico
-Pedro,4,Polonia,,,x,Arabia Saudita
+Ronda,Participante,Partido id,Equipo1,Gana1,Empata,Gana2,Equipo2
+1,Mariana,1,Argentina,x,,,Arabia Saudita
+1,Mariana,2,Polonia,,x,,Mexico
+1,Mariana,3,Argentina,x,,,Mexico
+1,Mariana,4,Arabia Saudita,,,x,Polonia
