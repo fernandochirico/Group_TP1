@@ -46,13 +46,12 @@ public class TP {
                     Partido partido = new Partido(equipo1, equipo2);
                     partido.setGolesEquipo1(Integer.parseInt(l_resultado.getR_equipo1Goles()));
                     partido.setGolesEquipo2(Integer.parseInt(l_resultado.getR_equipo2Goles()));
+                    partido.setRondaNro(l_resultado.getR_rondaNro());
                     partido.setIdPartido(l_resultado.getR_idPartido());
                     partidos.add(partido);
 
                     Ronda ronda = new Ronda(l_resultado.getR_rondaNro());
                     PartidosRondaTemporal.add(partido);
-                    //PartidosRondaTemporal.add(partido.getIdPartido(),partido.getEquipo1(),partido.getEquipo2(),partido.getGolesEquipo1(),partido.getGolesEquipo2());
-
                 }
             }
 

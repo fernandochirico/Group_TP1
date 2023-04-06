@@ -6,6 +6,7 @@ package group.tp;
  */
 public class Partido {
 
+    private String rondaNro;
     private String idPartido;
     private Equipo equipo1;
     private Equipo equipo2;
@@ -23,10 +24,17 @@ public class Partido {
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
     }
-
-    public Partido(String idPartido) {
+    
+    public Partido(String rondNro,String idPartido) {
+        this.rondaNro = rondaNro;
         this.idPartido = idPartido;
     }
+
+    
+    public String getRondaNro() {
+        return rondaNro;
+    }
+    
 
     public String getIdPartido() {
         return idPartido;
@@ -48,6 +56,11 @@ public class Partido {
         return golesEquipo2;
     }
 
+    public void setRondaNro(String rondaNro) {
+        this.rondaNro = rondaNro;
+    }
+
+    
     public void setIdPartido(String idPartido) {
         this.idPartido = idPartido;
     }
