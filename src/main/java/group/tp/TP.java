@@ -31,7 +31,7 @@ public class TP {
         Collection<Partido> partidos = new ArrayList<Partido>();
         List<Partido> PartidosRondaTemporal = new ArrayList<Partido>();
         System.out.println("\nLectura Archivo Resultados...");
-        List<Estructura_Resultado> listaDeResultados;
+       List<Estructura_Resultado> listaDeResultados;
         try {
             listaDeResultados = new CsvToBeanBuilder(new FileReader(args[0]))
                     .withType(Estructura_Resultado.class)
@@ -50,8 +50,20 @@ public class TP {
                     Equipo equipo1 = new Equipo(l_resultado.getR_equipo1Nombre());
                     Equipo equipo2 = new Equipo(l_resultado.getR_equipo2Nombre());
                     Partido partido = new Partido(equipo1, equipo2);
-                    partido.setGolesEquipo1(Integer.parseInt(l_resultado.getR_equipo1Goles()));
-                    partido.setGolesEquipo2(Integer.parseInt(l_resultado.getR_equipo2Goles()));
+
+                    try {
+                        partido.setGolesEquipo1(Integer.parseInt(l_resultado.getR_equipo1Goles()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error de formato numérico en el campo de GOLES EQUIPO 1 " + e.getMessage());
+                        System.exit(1);
+                    }
+                    try {
+                        partido.setGolesEquipo2(Integer.parseInt(l_resultado.getR_equipo2Goles()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error de formato numérico en el campo de GOLES EQUIPO 2 " + e.getMessage());
+                        System.exit(1);
+                    }
+
                     partido.setRondaNro(l_resultado.getR_rondaNro());
                     partido.setIdPartido(l_resultado.getR_idPartido());
                     partidos.add(partido);
@@ -59,14 +71,14 @@ public class TP {
                     Ronda ronda = new Ronda(l_resultado.getR_rondaNro());
                     PartidosRondaTemporal.add(partido);
                 }
-            }
-
-        } catch (IOException e) {
+        }
+        }catch (IOException e) {
             e.printStackTrace();
             System.out.println("El archivo de RESULTADOS no pudo leerse correctamente.");
             System.exit(1);
-        }
+                }  
 
+      
         /////////////////////////////////
         // leemos archivo de pronosticos
         /////////////////////////////////
@@ -142,7 +154,7 @@ public class TP {
                         }
                     } else {
                         // muestro puntos por cambio de Ronda
-                        muestroPuntos(rondaAnterior,participanteAnterior, puntos);
+                        muestroPuntos(rondaAnterior, participanteAnterior, puntos);
                         rondaAnterior = l_pronostico.getP_ronda();
                         participanteAnterior = l_pronostico.getP_participanteNombre();
                         puntos = 0;
@@ -151,8 +163,8 @@ public class TP {
                 }
             }
             // muestro puntos
-            muestroPuntos(rondaAnterior, participanteAnterior,puntos);
-        } catch (IOException e) {
+            muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");
             System.exit(1);
@@ -160,7 +172,7 @@ public class TP {
     }
 
     public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
-        System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE " +
-                participanteAnterior + " fueron: " + puntos);
+        System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE "
+                + participanteAnterior + " fueron: " + puntos);
     }
 }
