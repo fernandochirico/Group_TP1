@@ -89,6 +89,10 @@ public class TP {
                         rondaAnterior = l_pronostico.getP_ronda();
                         primerRegistroRonda = false;
                     }
+                    if (primerRegistroParticipante) {
+                        participanteAnterior = l_pronostico.getP_participanteNombre();
+                        primerRegistroParticipante = false;
+                    }
 //                    System.out.println(l_pronostico.getP_ronda() + ";" + l_pronostico.getP_participanteNombre() + ";" + l_pronostico.getP_idPartido() + ";" + l_pronostico.getP_Equipo1() + ";" + l_pronostico.getP_gana1()
 //                            + ";" + l_pronostico.getP_empata()
 //                            + ";" + l_pronostico.getP_gana2() + ";" + l_pronostico.getP_Equipo2());
@@ -126,20 +130,28 @@ public class TP {
 
                     Pronostico pronostico = new Pronostico(l_pronostico.getP_ronda(), partido, equipo, resultadoPronosticado);
                     // sumo puntos 
-
                     if (l_pronostico.getP_ronda().equals(rondaAnterior)) {
-                        puntos = puntos + pronostico.puntos();
+                        if (l_pronostico.getP_participanteNombre().equals(participanteAnterior)) {
+                            puntos = puntos + pronostico.puntos();
+                        } else {
+                            // muestro puntos por Participante
+                            muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+                            participanteAnterior = l_pronostico.getP_participanteNombre();
+                            puntos = 0;
+                            puntos = puntos + pronostico.puntos();
+                        }
                     } else {
                         // muestro puntos por Ronda
-                        muestroPuntos(rondaAnterior,puntos);
+                        muestroPuntos(rondaAnterior,participanteAnterior, puntos);
                         rondaAnterior = l_pronostico.getP_ronda();
+                        participanteAnterior = l_pronostico.getP_participanteNombre();
                         puntos = 0;
                         puntos = puntos + pronostico.puntos();
                     }
                 }
             }
             // muestro puntos
-            muestroPuntos(rondaAnterior,puntos);
+            muestroPuntos(rondaAnterior, participanteAnterior,puntos);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");
@@ -147,7 +159,8 @@ public class TP {
         }
     }
 
-    public static void muestroPuntos(String rondaAnterior,int puntos) {
-        System.out.println("\nLos puntos obtenidos en la Ronda " + rondaAnterior + " fueron: " + puntos);
+    public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
+        System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE " +
+                participanteAnterior + " fueron: " + puntos);
     }
 }
