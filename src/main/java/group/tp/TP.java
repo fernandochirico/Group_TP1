@@ -134,14 +134,14 @@ public class TP {
                         if (l_pronostico.getP_participanteNombre().equals(participanteAnterior)) {
                             puntos = puntos + pronostico.puntos();
                         } else {
-                            // muestro puntos por Participante
+                            // muestro puntos por cambio de Participante
                             muestroPuntos(rondaAnterior, participanteAnterior, puntos);
                             participanteAnterior = l_pronostico.getP_participanteNombre();
                             puntos = 0;
                             puntos = puntos + pronostico.puntos();
                         }
                     } else {
-                        // muestro puntos por Ronda
+                        // muestro puntos por cambio de Ronda
                         muestroPuntos(rondaAnterior,participanteAnterior, puntos);
                         rondaAnterior = l_pronostico.getP_ronda();
                         participanteAnterior = l_pronostico.getP_participanteNombre();
