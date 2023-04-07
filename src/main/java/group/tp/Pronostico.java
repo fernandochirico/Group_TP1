@@ -7,12 +7,14 @@ package group.tp;
 public class Pronostico {
 
     //private Participante participante;
+    
+    private String rondaPronostico;
     private Partido partido;
     private Equipo equipo;
     private ResultadoEnum resultado;
 
-    public Pronostico( Partido partido, Equipo equipo, ResultadoEnum resultado) {
-        
+    public Pronostico( String rondaPronostico,Partido partido, Equipo equipo, ResultadoEnum resultado) {
+        this.rondaPronostico = rondaPronostico;
         this.partido = partido;
         this.equipo = equipo;
         this.resultado = resultado;

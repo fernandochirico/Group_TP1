@@ -19,6 +19,12 @@ public class TP {
             System.out.println("ERROR: No ingresaste ningun archivo como argumento! \n Por favor ingresar archivo de RESULTADOS y PRONOSTICOS en ese orden");
             System.exit(88);
         }
+
+        String rondaAnterior = "";
+        String participanteAnterior = "";
+        int puntosPorRonda = 0;
+        int puntosPorParticipante = 0;
+
         /////////////////////////////////
         // Leemos archivo de resultados
         /////////////////////////////////
@@ -38,8 +44,8 @@ public class TP {
                     primerLinea = false;
                 } else {
                     i++;
-                    System.out.println(l_resultado.getR_rondaNro() + ";" + l_resultado.getR_idPartido() + ";" + l_resultado.getR_equipo1Nombre() + ";" + l_resultado.getR_equipo1Goles()
-                            + ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_equipo2Nombre());
+//                    System.out.println(l_resultado.getR_rondaNro() + ";" + l_resultado.getR_idPartido() + ";" + l_resultado.getR_equipo1Nombre() + ";" + l_resultado.getR_equipo1Goles()
+//                            + ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_equipo2Nombre());
 
                     Equipo equipo1 = new Equipo(l_resultado.getR_equipo1Nombre());
                     Equipo equipo2 = new Equipo(l_resultado.getR_equipo2Nombre());
@@ -73,13 +79,19 @@ public class TP {
                     .parse();
             boolean primerLinea = true;
             int puntos = 0; // puntos por persona
+            boolean primerRegistroRonda = true;
+            boolean primerRegistroParticipante = true;
             for (Estructura_Pronostico l_pronostico : listaDePronosticos) {
                 if (primerLinea) {
                     primerLinea = false;
                 } else {
-                    System.out.println(l_pronostico.getP_ronda() + ";" + l_pronostico.getP_participanteNombre() + ";" + l_pronostico.getP_idPartido()+ ";" + l_pronostico.getP_Equipo1() + ";"  + l_pronostico.getP_gana1()
-                            + ";" + l_pronostico.getP_empata()
-                            + ";" + l_pronostico.getP_gana2() + ";" + l_pronostico.getP_Equipo2());
+                    if (primerRegistroRonda) {
+                        rondaAnterior = l_pronostico.getP_ronda();
+                        primerRegistroRonda = false;
+                    }
+//                    System.out.println(l_pronostico.getP_ronda() + ";" + l_pronostico.getP_participanteNombre() + ";" + l_pronostico.getP_idPartido() + ";" + l_pronostico.getP_Equipo1() + ";" + l_pronostico.getP_gana1()
+//                            + ";" + l_pronostico.getP_empata()
+//                            + ";" + l_pronostico.getP_gana2() + ";" + l_pronostico.getP_Equipo2());
 
                     Equipo equipo1 = new Equipo(l_pronostico.getP_Equipo1());
                     Equipo equipo2 = new Equipo(l_pronostico.getP_Equipo2());
@@ -89,11 +101,11 @@ public class TP {
                     // le paso partido al constructor de la clase Partido
                     for (Partido coleccionPartido : partidos) {
                         if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
-                                && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())) {
+                                && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())
+                                && coleccionPartido.getRondaNro().equals(l_pronostico.getP_ronda())) {
 
                             partido = coleccionPartido;
                         }
-
                     }
 
                     // le paso ResultadoEnum al constructor de la clase Partido
@@ -112,17 +124,30 @@ public class TP {
                         }
                     }
 
-                    Pronostico pronostico = new Pronostico(partido, equipo, resultadoPronosticado);
+                    Pronostico pronostico = new Pronostico(l_pronostico.getP_ronda(), partido, equipo, resultadoPronosticado);
                     // sumo puntos 
-                    puntos = puntos + pronostico.puntos();
+
+                    if (l_pronostico.getP_ronda().equals(rondaAnterior)) {
+                        puntos = puntos + pronostico.puntos();
+                    } else {
+                        // muestro puntos por Ronda
+                        muestroPuntos(rondaAnterior,puntos);
+                        rondaAnterior = l_pronostico.getP_ronda();
+                        puntos = 0;
+                        puntos = puntos + pronostico.puntos();
+                    }
                 }
             }
             // muestro puntos
-            System.out.println("\nLos puntos obtenidos por la persona fueron:" + puntos);
+            muestroPuntos(rondaAnterior,puntos);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");
             System.exit(1);
         }
+    }
+
+    public static void muestroPuntos(String rondaAnterior,int puntos) {
+        System.out.println("\nLos puntos obtenidos en la Ronda " + rondaAnterior + " fueron: " + puntos);
     }
 }
