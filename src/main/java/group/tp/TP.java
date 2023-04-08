@@ -6,6 +6,8 @@ import java.util.List;
 import com.opencsv.bean.CsvToBeanBuilder; // Biblioteca para leer un CSV
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -31,7 +33,7 @@ public class TP {
         Collection<Partido> partidos = new ArrayList<Partido>();
         List<Partido> PartidosRondaTemporal = new ArrayList<Partido>();
         System.out.println("\nLectura Archivo Resultados...");
-       List<Estructura_Resultado> listaDeResultados;
+        List<Estructura_Resultado> listaDeResultados;
         try {
             listaDeResultados = new CsvToBeanBuilder(new FileReader(args[0]))
                     .withType(Estructura_Resultado.class)
@@ -71,14 +73,13 @@ public class TP {
                     Ronda ronda = new Ronda(l_resultado.getR_rondaNro());
                     PartidosRondaTemporal.add(partido);
                 }
-        }
-        }catch (IOException e) {
+            }
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("El archivo de RESULTADOS no pudo leerse correctamente.");
             System.exit(1);
-                }  
+        }
 
-      
         /////////////////////////////////
         // leemos archivo de pronosticos
         /////////////////////////////////
@@ -93,6 +94,7 @@ public class TP {
             int puntos = 0; // puntos por persona
             boolean primerRegistroRonda = true;
             boolean primerRegistroParticipante = true;
+            Map<String, Integer> puntosTotalPorParticipante = new HashMap<>();
             for (Estructura_Pronostico l_pronostico : listaDePronosticos) {
                 if (primerLinea) {
                     primerLinea = false;
@@ -147,6 +149,7 @@ public class TP {
                             puntos = puntos + pronostico.puntos();
                         } else {
                             // muestro puntos por cambio de Participante
+                            puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                             muestroPuntos(rondaAnterior, participanteAnterior, puntos);
                             participanteAnterior = l_pronostico.getP_participanteNombre();
                             puntos = 0;
@@ -154,6 +157,7 @@ public class TP {
                         }
                     } else {
                         // muestro puntos por cambio de Ronda
+                                                    puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                         muestroPuntos(rondaAnterior, participanteAnterior, puntos);
                         rondaAnterior = l_pronostico.getP_ronda();
                         participanteAnterior = l_pronostico.getP_participanteNombre();
@@ -163,7 +167,13 @@ public class TP {
                 }
             }
             // muestro puntos
+            puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
             muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+            System.out.println("=======================================================");
+            puntosTotalPorParticipante.forEach((k, v) -> {
+                System.out.println("Participante: " + k + ", Total de Puntos: " + v);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");

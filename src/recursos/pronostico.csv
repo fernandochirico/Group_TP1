@@ -5,7 +5,7 @@ Ronda,Participante,Partidoid,Equipo1,Gana1,Empata,Gana2,Equipo2
 1,Mariana,4,Arabia Saudita,,,x,Polonia
 1,Pedro,1,Argentina,,x,,Arabia Saudita
 1,Pedro,2,Polonia,x,,,Mexico
-1,Pedro,3,Argentina,,,x,Mexico
+1,Pedro,3,Argentina,x,,,Mexico
 1,Pedro,4,Arabia Saudita,x,,,Polonia
 2,Mariana,1,Argentina,x,,,Arabia Saudita
 2,Mariana,2,Polonia,,x,,Mexico
