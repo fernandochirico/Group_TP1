@@ -4,16 +4,6 @@
  */
 package group.tp;
 
-import com.opencsv.bean.CsvToBeanBuilder;
-import static group.tp.TP.muestroPuntos;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
-import junit.framework.Assert;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 import static org.junit.Assert.*;
