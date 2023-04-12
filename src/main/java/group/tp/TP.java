@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.sql.*;
+
+import static persistencia.ConectorSQL.DB_URL;
+import static persistencia.ConectorSQL.USER;
+import static persistencia.ConectorSQL.PASS;
+
 /**
  *
  * @author GRUPO 13
@@ -195,5 +201,5 @@ public class TP {
     public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
         System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE "
                 + participanteAnterior + " fueron: " + puntos);
-    }
+    } 
 }

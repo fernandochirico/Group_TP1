@@ -1,0 +1,2 @@
+base e datos,puntos por acierto,punto extra ronda,punto extra fase
+jdbc:mysql://localhost:3306/prode,1,1,1
