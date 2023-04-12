@@ -4,16 +4,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import com.opencsv.bean.CsvToBeanBuilder; // Biblioteca para leer un CSV
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.sql.*;
-
-import static persistencia.ConectorSQL.DB_URL;
-import static persistencia.ConectorSQL.USER;
-import static persistencia.ConectorSQL.PASS;
 
 /**
  *
@@ -21,7 +16,7 @@ import static persistencia.ConectorSQL.PASS;
  */
 public class TP {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
         if (args.length == 0) {
             System.out.println("ERROR: No ingresaste ningun archivo como argumento! \n Por favor ingresar archivo de RESULTADOS y PRONOSTICOS en ese orden");
@@ -33,6 +28,10 @@ public class TP {
         int puntosPorRonda = 0;
         int puntosPorParticipante = 0;
 
+        // Creacion tabla 'pronosticos'
+        CreacionDeTablas CrearTablas = new CreacionDeTablas() ;
+        CrearTablas.CreacionTablaPronosticos();
+                
         /////////////////////////////////
         // Leemos archivo de resultados
         /////////////////////////////////

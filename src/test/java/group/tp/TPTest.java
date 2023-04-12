@@ -12,8 +12,8 @@ import java.sql.Statement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import persistencia.ConectorSQL;
 
-import static persistencia.ConectorSQL.DB_URL;
 import static persistencia.ConectorSQL.PASS;
 import static persistencia.ConectorSQL.USER;
 
@@ -31,7 +31,7 @@ public class TPTest {
     }
 
     @Test
-    public void testMain() {
+    public void testMain() throws SQLException {
         System.out.println("main");
         String[] args = new String[2];
         args[0] = "c:\\Curso_Java\\UTN_TP\\Group_TP1\\src\\recursos\\resultados.csv";
@@ -44,25 +44,27 @@ public class TPTest {
     @Test
     public void testconexionMySQL() {
         Connection conexion = null;
-        Statement consulta = null;
+        Statement sentencia = null;
 
         try {
 
             // Abrir la conexión
             System.out.println("conectando a la base de datos...");
 
-            conexion = DriverManager.getConnection(DB_URL, USER, PASS);
+            //conexion = DriverManager.getConnection(DB_URL, USER, PASS);
+            conexion = ConectorSQL.getConexion();
+            
 
-            // Ejecutar una consulta
+            // Ejecutar una sentencia
             System.out.println("Creando statement...");
-            consulta = conexion.createStatement();
+            sentencia = conexion.createStatement();
             String sql;
             sql = "SELECT concepto,puntos,observacion FROM prode.configuracion";
 
             //En la variable resultado obtendremos las distintas filas que nos devolvió la base
-            ResultSet resultado = consulta.executeQuery(sql);
+            ResultSet resultado = sentencia.executeQuery(sql);
 
-            // Obtener las distintas filas de la consulta
+            // Obtener las distintas filas de la sentencia
             while (resultado.next()) {
                 // Obtener el valor de cada columna
                 String concepto = resultado.getString("concepto");
@@ -76,7 +78,7 @@ public class TPTest {
             }
             // Esto se utiliza par cerrar la conexión con la base de datos
             resultado.close();
-            consulta.close();
+            sentencia.close();
             conexion.close();
         } catch (SQLException se) {
             // Execpción ante problemas de conexión
@@ -84,8 +86,8 @@ public class TPTest {
         } finally {
             // Esta sentencia es para que ante un problema con la base igual se cierren las conexiones
             try {
-                if (consulta != null)
-                    consulta.close();
+                if (sentencia != null)
+                    sentencia.close();
             } catch (SQLException se2) {
             }
             try {
