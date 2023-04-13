@@ -15,22 +15,20 @@ import java.util.Map;
  * @author GRUPO 13
  */
 public class TP {
-    
+
     public static void main(String[] args) throws SQLException {
-        
+
         if (args.length == 0) {
             System.out.println("ERROR: No ingresaste ningun archivo como argumento! \n Por favor ingresar archivo de RESULTADOS y PRONOSTICOS en ese orden");
             System.exit(88);
         }
-        
+
         String rondaAnterior = "";
         String participanteAnterior = "";
         int puntosPorRonda = 0;
         int puntosPorParticipante = 0;
-
         // Chequea Creacion tabla 'pronosticos'
         CreacionDeTablas.CreacionTablaPronosticos();
-                
         /////////////////////////////////
         // Leemos archivo de resultados
         /////////////////////////////////
@@ -43,7 +41,7 @@ public class TP {
                     .withType(Estructura_Resultado.class)
                     .build()
                     .parse();
-         
+
             boolean primerLinea = true;
             int i = 0;
             for (Estructura_Resultado l_resultado : listaDeResultados) {
@@ -51,23 +49,20 @@ public class TP {
                     primerLinea = false;
                 } else {
                     i++;
-                       if ( (l_resultado.getR_rondaNro().isEmpty()) ||
-                          (l_resultado.getR_idPartido().isEmpty()) ||
-                          (l_resultado.getR_equipo1Nombre().isEmpty()) ||
-                          (l_resultado.getR_equipo1Goles().isEmpty()) ||
-                          (l_resultado.getR_equipo2Goles().isEmpty()) ||
-                          (l_resultado.getR_equipo2Nombre().isEmpty()) ){
-                System.out.println("Faltan columnas al archivo Resultados, linea: " + (i+1) );
-                System.exit(1);
-            }
+                    if ((l_resultado.getR_rondaNro().isEmpty())
+                            || (l_resultado.getR_idPartido().isEmpty())
+                            || (l_resultado.getR_equipo1Nombre().isEmpty())
+                            || (l_resultado.getR_equipo1Goles().isEmpty())
+                            || (l_resultado.getR_equipo2Goles().isEmpty())
+                            || (l_resultado.getR_equipo2Nombre().isEmpty())) {
+                        System.out.println("Faltan columnas al archivo Resultados, linea: " + (i + 1));
+                        System.exit(1);
+                    }
 //                    System.out.println(l_resultado.getR_rondaNro() + ";" + l_resultado.getR_idPartido() + ";" + l_resultado.getR_equipo1Nombre() + ";" + l_resultado.getR_equipo1Goles()
 //                            + ";" + l_resultado.getR_equipo2Goles() + ";" + l_resultado.getR_equipo2Nombre());
-
-
                     Equipo equipo1 = new Equipo(l_resultado.getR_equipo1Nombre());
                     Equipo equipo2 = new Equipo(l_resultado.getR_equipo2Nombre());
                     Partido partido = new Partido(equipo1, equipo2);
-                    
                     try {
                         partido.setGolesEquipo1(Integer.parseInt(l_resultado.getR_equipo1Goles()));
                     } catch (NumberFormatException e) {
@@ -80,11 +75,10 @@ public class TP {
                         System.out.println("Error de formato numérico en el campo de GOLES EQUIPO 2 " + e.getMessage());
                         System.exit(1);
                     }
-                    
                     partido.setRondaNro(l_resultado.getR_rondaNro());
                     partido.setIdPartido(l_resultado.getR_idPartido());
                     partidos.add(partido);
-                    
+
                     Ronda ronda = new Ronda(l_resultado.getR_rondaNro());
                     PartidosRondaTemporal.add(partido);
                 }
@@ -94,7 +88,6 @@ public class TP {
             System.out.println("El archivo de RESULTADOS no pudo leerse correctamente.");
             System.exit(1);
         }
-
         /////////////////////////////////
         // leemos archivo de pronosticos
         /////////////////////////////////
@@ -129,18 +122,16 @@ public class TP {
                     Equipo equipo1 = new Equipo(l_pronostico.getP_Equipo1());
                     Equipo equipo2 = new Equipo(l_pronostico.getP_Equipo2());
                     Partido partido = null;
-
                     // identifico el partido que estoy leyendo en este registro y
                     // le paso partido al constructor de la clase Partido
                     for (Partido coleccionPartido : partidos) {
                         if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
                                 && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())
                                 && coleccionPartido.getRondaNro().equals(l_pronostico.getP_ronda())) {
-                            
+
                             partido = coleccionPartido;
                         }
                     }
-
                     // le paso ResultadoEnum al constructor de la clase Partido
                     Equipo equipo = null;
                     ResultadoEnum resultadoPronosticado = null;
@@ -156,7 +147,6 @@ public class TP {
                             resultadoPronosticado = ResultadoEnum.EMPATE;
                         }
                     }
-                    
                     Pronostico pronostico = new Pronostico(l_pronostico.getP_ronda(), partido, equipo, resultadoPronosticado);
                     // sumo puntos 
                     if (l_pronostico.getP_ronda().equals(rondaAnterior)) {
@@ -188,16 +178,15 @@ public class TP {
             puntosTotalPorParticipante.forEach((k, v) -> {
                 System.out.println("Participante: " + k + ", Total de Puntos: " + v);
             });
-            
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("El archivo de PRONOSTICOS no pudo leerse correctamente.");
             System.exit(1);
         }
     }
-    
+
     public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
         System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE "
                 + participanteAnterior + " fueron: " + puntos);
-    } 
+    }
 }

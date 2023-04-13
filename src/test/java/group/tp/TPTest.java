@@ -19,8 +19,7 @@ import persistencia.ConectorSQL;
  */
 public class TPTest {
 
-   // private int puntos;
-
+    // private int puntos;
     @BeforeEach
     public void inicializar() {
         // puntos = 10;
@@ -35,7 +34,7 @@ public class TPTest {
         TP.main(args);
 
         //Assert.assertEquals(3, puntos );
-         }
+    }
 
     @Test
     public void testconexionMySQL() {
@@ -43,32 +42,25 @@ public class TPTest {
         Statement sentencia = null;
 
         try {
-
             // Abrir la conexión
             System.out.println("conectando a la base de datos...");
-
             //conexion = DriverManager.getConnection(DB_URL, USER, PASS);
             conexion = ConectorSQL.getConexion();
-            
-
             // Ejecutar una sentencia
             System.out.println("Creando statement...");
             sentencia = conexion.createStatement();
             String sql;
             sql = "SELECT concepto,puntos,observacion FROM prode.configuracion";
-
             //En la variable resultado obtendremos las distintas filas que nos devolvió la base
             ResultSet resultado = sentencia.executeQuery(sql);
-
             // Obtener las distintas filas de la sentencia
             while (resultado.next()) {
                 // Obtener el valor de cada columna
                 String concepto = resultado.getString("concepto");
                 int puntos = resultado.getInt("puntos");
                 String observacion = resultado.getString("observacion");
-
                 // Mostrar los valores obtenidos
-                System.out.print("Concepto " +concepto);
+                System.out.print("Concepto " + concepto);
                 System.out.print(", Puntos: " + puntos);
                 System.out.println(", Observacion: " + observacion);
             }
@@ -82,18 +74,19 @@ public class TPTest {
         } finally {
             // Esta sentencia es para que ante un problema con la base igual se cierren las conexiones
             try {
-                if (sentencia != null)
+                if (sentencia != null) {
                     sentencia.close();
+                }
             } catch (SQLException se2) {
             }
             try {
-                if (conexion != null)
+                if (conexion != null) {
                     conexion.close();
+                }
             } catch (SQLException se) {
                 se.printStackTrace();
             }
         }
         System.out.println("Fin de la ejecucción");
-        
     }
 }
