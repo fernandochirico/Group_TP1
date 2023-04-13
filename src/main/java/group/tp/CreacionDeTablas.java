@@ -1,7 +1,6 @@
 package group.tp;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ import persistencia.ConectorSQL;
  */
 public class CreacionDeTablas {
 
-    public void CreacionTablaPronosticos() throws SQLException {
+    public static void CreacionTablaPronosticos() throws SQLException {
 
         System.out.println("Comienzo Chequeo tabla pronosticos...");
         Connection conexion = ConectorSQL.getConexion();

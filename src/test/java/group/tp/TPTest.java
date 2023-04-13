@@ -11,11 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import persistencia.ConectorSQL;
-
-import static persistencia.ConectorSQL.PASS;
-import static persistencia.ConectorSQL.USER;
 
 /**
  *

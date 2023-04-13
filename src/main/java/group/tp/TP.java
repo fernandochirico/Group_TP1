@@ -28,9 +28,8 @@ public class TP {
         int puntosPorRonda = 0;
         int puntosPorParticipante = 0;
 
-        // Creacion tabla 'pronosticos'
-        CreacionDeTablas CrearTablas = new CreacionDeTablas() ;
-        CrearTablas.CreacionTablaPronosticos();
+        // Chequea Creacion tabla 'pronosticos'
+        CreacionDeTablas.CreacionTablaPronosticos();
                 
         /////////////////////////////////
         // Leemos archivo de resultados
