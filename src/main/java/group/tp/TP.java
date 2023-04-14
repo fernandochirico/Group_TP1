@@ -9,6 +9,13 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import persistencia.ConectorSQL;
 
 /**
  *
@@ -16,10 +23,19 @@ import java.util.Map;
  */
 public class TP {
 
+    public static String nombreDB1;
+    public static String host1;
+    public static String puerto1;
+    public static String USER1;
+    public static String PASS1;
+    public static String puntosPorAcierto;
+    public static String puntosPorRonda;
+    public static String puntosPorFase;
+
     public static void main(String[] args) throws SQLException {
 
         if (args.length == 0) {
-            System.out.println("ERROR: No ingresaste ningun archivo como argumento! \n Por favor ingresar archivo de RESULTADOS y PRONOSTICOS en ese orden");
+            System.out.println("ERROR: No ingresaste ningun archivo como argumento! \n Por favor ingresar archivo de RESULTADOS y CONFIGURACION en ese orden");
             System.exit(88);
         }
 
@@ -27,8 +43,18 @@ public class TP {
         String participanteAnterior = "";
         int puntosPorRonda = 0;
         int puntosPorParticipante = 0;
+        
+          /////////////////////////////////
+        // leemos archivo de configuracion
+        /////////////////////////////////
+        leerArchivoConfiguracion(args[1]);
+        
+        // Actualizar tabla prode.configuracion según archivo configuracion.csv
+        actualizarTablaConfiguracion();
+        
         // Chequea Creacion tabla 'pronosticos'
         CreacionDeTablas.CreacionTablaPronosticos();
+        
         /////////////////////////////////
         // Leemos archivo de resultados
         /////////////////////////////////
@@ -88,11 +114,14 @@ public class TP {
             System.out.println("El archivo de RESULTADOS no pudo leerse correctamente.");
             System.exit(1);
         }
+      
         /////////////////////////////////
         // leemos archivo de pronosticos
         /////////////////////////////////
-        System.out.println("\nLectura Archivo Pronosticos...");
+        System.out.println(
+                "\nLectura Archivo Pronosticos...");
         List<Estructura_Pronostico> listaDePronosticos;
+
         try {
             listaDePronosticos = new CsvToBeanBuilder(new FileReader(args[1]))
                     .withType(Estructura_Pronostico.class)
@@ -188,5 +217,48 @@ public class TP {
     public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
         System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE "
                 + participanteAnterior + " fueron: " + puntos);
+    }
+
+    public static void leerArchivoConfiguracion(String archivo) {
+        Path pathconfiguracion = Paths.get(archivo);
+        List<String> lineasConfiguracion = null;
+        try {
+            lineasConfiguracion = Files.readAllLines(pathconfiguracion);
+        } catch (IOException e) {
+            System.out.println("No se pudo leer la linea del archivo de configuracion...");
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        for (String lineaConfiguracion : lineasConfiguracion) {
+            String[] campos = lineaConfiguracion.split(",");
+            host1 = campos[0];
+            puerto1 = campos[1];
+            nombreDB1 = campos[2];
+            USER1 = campos[3];
+            PASS1 = campos[4];
+            puntosPorAcierto = campos[5];
+            puntosPorRonda = campos[6];
+            puntosPorFase = campos[7];
+        }
+    }
+
+    public static void actualizarTablaConfiguracion() throws SQLException {
+        Connection conexion = ConectorSQL.getConexion();
+        Statement sentencia = null;
+        try {
+            sentencia = conexion.createStatement();
+            String sql;
+            sql = "update configuracion set puntos ='" + puntosPorAcierto + "' where concepto = 'ACIERTO'";
+            sentencia.executeUpdate(sql);
+            sql = "update configuracion set puntos ='" + puntosPorRonda + "' where concepto = 'RONDA'";
+            sentencia.executeUpdate(sql);
+            sql = "update configuracion set puntos ='" + puntosPorFase + "' where concepto = 'FASE'";
+            sentencia.executeUpdate(sql);
+            sentencia.close();
+            ConectorSQL.cerrarConexion();
+        } catch (SQLException se) {
+            // Execpción ante problemas de conexión
+            se.printStackTrace();
+        }
     }
 }

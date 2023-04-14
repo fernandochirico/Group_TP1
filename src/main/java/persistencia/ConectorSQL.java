@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import group.tp.TP;
 
 /**
  *
@@ -16,12 +17,19 @@ public class ConectorSQL {
 
     // Credenciales credentials
     //  private static Connection conexion = "jdbc:mysql://localhost:3306/prode,root,root"
-    private static Connection conexion = null;
+    /*private static Connection conexion = null;
     private static String nombreDB = "prode";
     private static String host = "localhost";
     private static String puerto = "3306";
-    public static final String USER = "root";
-    public static final String PASS = "root";
+    private static String USER = "root";
+    private static String PASS = "root";*/
+    
+    private static Connection conexion = null;
+    private static String nombreDB = TP.nombreDB1;
+    private static String host = TP.host1;
+    private static String puerto = TP.puerto1;
+    private static String USER = TP.USER1;
+    private static String PASS = TP.PASS1;
 
     public static Connection getConexion() throws SQLException {
         System.out.println("conectando a la base de datos...");

@@ -4,6 +4,7 @@
  */
 package group.tp;
 
+import static group.tp.TP.leerArchivoConfiguracion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -40,10 +41,8 @@ public class TPTest {
     public void testconexionMySQL() {
         Connection conexion = null;
         Statement sentencia = null;
-
+        leerArchivoConfiguracion("C:\\Curso_Java\\UTN_TP\\Group_TP1\\src\\recursos\\configuracion.csv");
         try {
-            // Abrir la conexión
-            System.out.println("conectando a la base de datos...");
             //conexion = DriverManager.getConnection(DB_URL, USER, PASS);
             conexion = ConectorSQL.getConexion();
             // Ejecutar una sentencia
