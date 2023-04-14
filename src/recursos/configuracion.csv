@@ -1,2 +1,2 @@
 host,puerto,base de datos,usuario,clave,puntos por acierto,punto extra ronda,punto extra fase
-localhost,3306,prode,root,root,1,1,1
+localhost,3306,prode,root,root,2,1,1

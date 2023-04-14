@@ -241,11 +241,11 @@ public class TP {
         try {
             sentencia = conexion.createStatement();
             String sql;
-            sql = "update configuracion set puntos ='" + puntosPorAcierto + "' where concepto = 'ACIERTO'";
+            sql = "update configuracion set puntos ='" + puntosPorAcierto + "' where concepto = 'ACIERTO';";
             sentencia.executeUpdate(sql);
-            sql = "update configuracion set puntos ='" + puntosPorRonda + "' where concepto = 'RONDA'";
+            sql = "update configuracion set puntos ='" + puntosPorRonda + "' where concepto = 'RONDA';";
             sentencia.executeUpdate(sql);
-            sql = "update configuracion set puntos ='" + puntosPorFase + "' where concepto = 'FASE'";
+            sql = "update configuracion set puntos ='" + puntosPorFase + "' where concepto = 'FASE';";
             sentencia.executeUpdate(sql);
             sentencia.close();
             ConectorSQL.cerrarConexion();

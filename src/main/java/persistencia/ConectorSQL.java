@@ -2,9 +2,7 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import group.tp.TP;
 
 /**
@@ -13,7 +11,7 @@ import group.tp.TP;
  */
 public class ConectorSQL {
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    //static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
     // Credenciales credentials
     //  private static Connection conexion = "jdbc:mysql://localhost:3306/prode,root,root"
