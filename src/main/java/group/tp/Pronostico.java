@@ -1,5 +1,6 @@
 package group.tp;
 
+import group.tp.TP;
 /**
  *
  * @author GRUPO 13
@@ -35,7 +36,7 @@ public class Pronostico {
     public int puntos() {
         ResultadoEnum resultadoReal = partido.resultado(equipo);
         if (resultado.equals(resultadoReal)) {
-            return 1;
+            return Integer.parseInt(TP.puntosPorAcierto);
         } else {
             return 0;
         }
