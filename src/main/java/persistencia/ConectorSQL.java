@@ -12,7 +12,6 @@ import group.tp.TP;
 public class ConectorSQL {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; // en realidad no hace falta porque está la dependencia en el POM.XML (Maven)
-                                                               // lo dejo por compatibilidad por si se usa otro GESTOR DE DEPENDENCIAS que no sea Maven
 
     // Credenciales credentials
 

@@ -40,6 +40,7 @@ public class TP {
             System.exit(88);
         }
 
+        String faseAnterior = "";
         String rondaAnterior = "";
         String participanteAnterior = "";
         int puntosPorRonda = 0;
@@ -122,16 +123,20 @@ public class TP {
         System.out.println("\nLectura tabla prode.pronosticos...");
         try {
             Connection conexion = ConectorSQL.getConexion();
-            PreparedStatement sentenciaDeBusqueda = conexion.prepareStatement("SELECT * FROM pronosticos");
+            PreparedStatement sentenciaDeBusqueda = conexion.prepareStatement("SELECT * FROM pronosticos order by fase,ronda,participante;");
             ResultSet resultado = sentenciaDeBusqueda.executeQuery();
 
             int puntos = 0; // puntos por persona
+            boolean primerRegistroFase = true;
             boolean primerRegistroRonda = true;
             boolean primerRegistroParticipante = true;
             Map<String, Integer> puntosTotalPorParticipante = new HashMap<>();
 
             while (resultado.next()) {
-                //for (Estructura_Pronostico l_pronostico : listaDePronosticos) {//
+                if (primerRegistroFase) {
+                    faseAnterior = resultado.getString("fase");
+                    primerRegistroFase = false;
+                }
                 if (primerRegistroRonda) {
                     rondaAnterior = resultado.getString("ronda");
                     primerRegistroRonda = false;
@@ -169,23 +174,34 @@ public class TP {
                         resultadoPronosticado = ResultadoEnum.EMPATE;
                     }
                 }
-                Pronostico pronostico = new Pronostico(resultado.getString("ronda"), partido, equipo, resultadoPronosticado);
+                Pronostico pronostico = new Pronostico(resultado.getString("fase"), resultado.getString("ronda"), partido, equipo, resultadoPronosticado);
                 // sumo puntos 
-                if (resultado.getString("ronda").equals(rondaAnterior)) {
-                    if (resultado.getString("participante").equals(participanteAnterior)) {
-                        puntos = puntos + pronostico.puntos();
+                if (resultado.getString("fase").equals(faseAnterior)) {
+                    if (resultado.getString("ronda").equals(rondaAnterior)) {
+                        if (resultado.getString("participante").equals(participanteAnterior)) {
+                            puntos = puntos + pronostico.puntos();
+                        } else {
+                            // muestro puntos por cambio de Participante
+                            puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
+                            muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
+                            participanteAnterior = resultado.getString("participante");
+                            puntos = 0;
+                            puntos = puntos + pronostico.puntos();
+                        }
                     } else {
-                        // muestro puntos por cambio de Participante
+                        // muestro puntos por cambio de Ronda
                         puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
-                        muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+                        muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
+                        rondaAnterior = resultado.getString("ronda");
                         participanteAnterior = resultado.getString("participante");
                         puntos = 0;
                         puntos = puntos + pronostico.puntos();
                     }
                 } else {
-                    // muestro puntos por cambio de Ronda
+                    // muestro puntos por cambio de Fase
                     puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
-                    muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+                    muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
+                    faseAnterior = resultado.getString("fase");
                     rondaAnterior = resultado.getString("ronda");
                     participanteAnterior = resultado.getString("participante");
                     puntos = 0;
@@ -195,7 +211,7 @@ public class TP {
             }
             // muestro puntos
             puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
-            muestroPuntos(rondaAnterior, participanteAnterior, puntos);
+            muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
             System.out.println("=======================================================");
             puntosTotalPorParticipante.forEach((k, v) -> {
                 System.out.println("Participante: " + k + ", Total de Puntos: " + v);
@@ -207,8 +223,8 @@ public class TP {
         }
     }
 
-    public static void muestroPuntos(String rondaAnterior, String participanteAnterior, int puntos) {
-        System.out.println("\nLos puntos obtenidos en la RONDA " + rondaAnterior + " por el PARTICIPANTE "
+    public static void muestroPuntos(String faseAnterior, String rondaAnterior, String participanteAnterior, int puntos) {
+        System.out.println("\nLos puntos obtenidos en la FASE" + faseAnterior + " RONDA " + rondaAnterior + " por el PARTICIPANTE "
                 + participanteAnterior + " fueron: " + puntos);
     }
 

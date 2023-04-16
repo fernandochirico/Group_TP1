@@ -9,12 +9,14 @@ public class Pronostico {
 
     //private Participante participante;
     
+    private String fasePronostico;
     private String rondaPronostico;
     private Partido partido;
     private Equipo equipo;
     private ResultadoEnum resultado;
 
-    public Pronostico( String rondaPronostico,Partido partido, Equipo equipo, ResultadoEnum resultado) {
+    public Pronostico( String fasePronostico,String rondaPronostico,Partido partido, Equipo equipo, ResultadoEnum resultado) {
+        this.rondaPronostico = fasePronostico;
         this.rondaPronostico = rondaPronostico;
         this.partido = partido;
         this.equipo = equipo;
