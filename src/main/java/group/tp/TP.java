@@ -161,7 +161,6 @@ public class TP {
                             && coleccionPartido.getRondaNro().equals(resultado.getString("ronda")) 
                             && coleccionPartido.getFaseNro().equals(resultado.getString("fase")) )
                     {
-
                         partido = coleccionPartido;
                     }
                 }
