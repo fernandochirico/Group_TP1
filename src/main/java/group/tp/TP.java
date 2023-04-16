@@ -126,7 +126,7 @@ public class TP {
         try {
             Connection conexion = ConectorSQL.getConexion();
             PreparedStatement sentenciaDeBusqueda = conexion.prepareStatement("SELECT * FROM pronosticos order by fase,ronda,participante;");
-            ResultSet resultado = sentenciaDeBusqueda.executeQuery();
+            ResultSet setDeConsulta = sentenciaDeBusqueda.executeQuery();
 
             int puntos = 0; // puntos por persona
             boolean primerRegistroFase = true;
@@ -136,30 +136,30 @@ public class TP {
             Map<String, Integer> falgAcertoTodasLasRondas = new HashMap<>(); // por no estara en 0
             Map<String, Integer> puntosTotalPorParticipante = new HashMap<>();
 
-            while (resultado.next()) {
+            while (setDeConsulta.next()) {
                 if (primerRegistroFase) {
-                    faseAnterior = resultado.getString("fase");
+                    faseAnterior = setDeConsulta.getString("fase");
                     primerRegistroFase = false;
                 }
                 if (primerRegistroRonda) {
-                    rondaAnterior = resultado.getString("ronda");
+                    rondaAnterior = setDeConsulta.getString("ronda");
                     primerRegistroRonda = false;
                 }
                 if (primerRegistroParticipante) {
-                    participanteAnterior = resultado.getString("participante");
+                    participanteAnterior = setDeConsulta.getString("participante");
                     primerRegistroParticipante = false;
                 }
 
-                Equipo equipo1 = new Equipo(resultado.getString("equipo1"));
-                Equipo equipo2 = new Equipo(resultado.getString("equipo2"));
+                Equipo equipo1 = new Equipo(setDeConsulta.getString("equipo1"));
+                Equipo equipo2 = new Equipo(setDeConsulta.getString("equipo2"));
                 Partido partido = null;
                 // identifico el partido que estoy leyendo en este registro y
                 // le paso partido al constructor de la clase Partido
                 for (Partido coleccionPartido : partidos) {
                     if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
                             && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())
-                            && coleccionPartido.getRondaNro().equals(resultado.getString("ronda")) 
-                            && coleccionPartido.getFaseNro().equals(resultado.getString("fase")) )
+                            && coleccionPartido.getRondaNro().equals(setDeConsulta.getString("ronda")) 
+                            && coleccionPartido.getFaseNro().equals(setDeConsulta.getString("fase")) )
                     {
                         partido = coleccionPartido;
                     }
@@ -167,11 +167,12 @@ public class TP {
                 // le paso ResultadoEnum al constructor de la clase Partido
                 Equipo equipo = null;
                 ResultadoEnum resultadoPronosticado = null;
-                if ((resultado.getString("gana1").toUpperCase()) == "X") {
+                String eleccion = "X";
+                if (setDeConsulta.getString("gana1").toUpperCase().equals(eleccion)) {
                     equipo = equipo1;
                     resultadoPronosticado = ResultadoEnum.GANADOR;
                 } else {
-                    if (resultado.getString("gana2").toUpperCase() == "X") {
+                    if (setDeConsulta.getString("gana2").toUpperCase().equals(eleccion)) {
                         equipo = equipo1;
                         resultadoPronosticado = ResultadoEnum.PERDEDOR;
                     } else {
@@ -179,17 +180,17 @@ public class TP {
                         resultadoPronosticado = ResultadoEnum.EMPATE;
                     }
                 }
-                Pronostico pronostico = new Pronostico(resultado.getString("fase"), resultado.getString("ronda"), partido, equipo, resultadoPronosticado);
+                Pronostico pronostico = new Pronostico(setDeConsulta.getString("fase"), setDeConsulta.getString("ronda"), partido, equipo, resultadoPronosticado);
                 // sumo puntos 
-                if (resultado.getString("fase").equals(faseAnterior)) {
-                    if (resultado.getString("ronda").equals(rondaAnterior)) {
-                        if (resultado.getString("participante").equals(participanteAnterior)) {
+                if (setDeConsulta.getString("fase").equals(faseAnterior)) {
+                    if (setDeConsulta.getString("ronda").equals(rondaAnterior)) {
+                        if (setDeConsulta.getString("participante").equals(participanteAnterior)) {
                             puntos = puntos + pronostico.puntos();
                         } else {
                             // muestro puntos por cambio de Participante
                             puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                             muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
-                            participanteAnterior = resultado.getString("participante");
+                            participanteAnterior = setDeConsulta.getString("participante");
                             puntos = 0;
                             puntos = puntos + pronostico.puntos();
                         }
@@ -197,8 +198,8 @@ public class TP {
                         // muestro puntos por cambio de Ronda
                         puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                         muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
-                        rondaAnterior = resultado.getString("ronda");
-                        participanteAnterior = resultado.getString("participante");
+                        rondaAnterior = setDeConsulta.getString("ronda");
+                        participanteAnterior = setDeConsulta.getString("participante");
                         puntos = 0;
                         puntos = puntos + pronostico.puntos();
                     }
@@ -206,9 +207,9 @@ public class TP {
                     // muestro puntos por cambio de Fase
                     puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                     muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
-                    faseAnterior = resultado.getString("fase");
-                    rondaAnterior = resultado.getString("ronda");
-                    participanteAnterior = resultado.getString("participante");
+                    faseAnterior = setDeConsulta.getString("fase");
+                    rondaAnterior = setDeConsulta.getString("ronda");
+                    participanteAnterior = setDeConsulta.getString("participante");
                     puntos = 0;
                     puntos = puntos + pronostico.puntos();
                 }
