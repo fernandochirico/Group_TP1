@@ -17,22 +17,27 @@ public class Estructura_Resultado {
     private Integer r_idPartido;
     @CsvBindByPosition(position = 3)
     private Integer r_idequipo1;
-    */
-    
+     */
     //@CsvBindByPosition(position = 0)
     //private String r_filler;
     @CsvBindByPosition(position = 0)
-    private String r_rondaNro;
+    private String r_faseNro;
     @CsvBindByPosition(position = 1)
-    private String r_idPartido;
+    private String r_rondaNro;
     @CsvBindByPosition(position = 2)
-    private String r_equipo1Nombre;
+    private String r_idPartido;
     @CsvBindByPosition(position = 3)
-    private String r_equipo1Goles;
+    private String r_equipo1Nombre;
     @CsvBindByPosition(position = 4)
-    private String r_equipo2Goles;
+    private String r_equipo1Goles;
     @CsvBindByPosition(position = 5)
+    private String r_equipo2Goles;
+    @CsvBindByPosition(position = 6)
     private String r_equipo2Nombre;
+
+    public String getR_faseNro() {
+        return r_faseNro;
+    }
 
     public String getR_rondaNro() {
         return r_rondaNro;
@@ -41,7 +46,7 @@ public class Estructura_Resultado {
     public String getR_idPartido() {
         return r_idPartido;
     }
-    
+
     public String getR_equipo1Nombre() {
         return r_equipo1Nombre;
     }
@@ -56,6 +61,10 @@ public class Estructura_Resultado {
 
     public String getR_equipo2Nombre() {
         return r_equipo2Nombre;
+    }
+
+    public void setR_faseNro(String r_faseNro) {
+        this.r_faseNro = r_faseNro;
     }
 
     public void setR_rondaNro(String r_rondaNro) {
@@ -82,6 +91,4 @@ public class Estructura_Resultado {
         this.r_equipo2Nombre = r_equipo2Nombre;
     }
 
-   
-}  
-    
+}

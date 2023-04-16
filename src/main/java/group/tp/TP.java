@@ -103,6 +103,7 @@ public class TP {
                         System.out.println("Error de formato numérico en el campo de GOLES EQUIPO 2 " + e.getMessage());
                         System.exit(1);
                     }
+                    partido.setFaseNro(l_resultado.getR_faseNro());
                     partido.setRondaNro(l_resultado.getR_rondaNro());
                     partido.setIdPartido(l_resultado.getR_idPartido());
                     partidos.add(partido);
@@ -130,6 +131,8 @@ public class TP {
             boolean primerRegistroFase = true;
             boolean primerRegistroRonda = true;
             boolean primerRegistroParticipante = true;
+            Map<String, Integer> falgAcertoTodasLasFases = new HashMap<>();  // por no estara en 0
+            Map<String, Integer> falgAcertoTodasLasRondas = new HashMap<>(); // por no estara en 0
             Map<String, Integer> puntosTotalPorParticipante = new HashMap<>();
 
             while (resultado.next()) {

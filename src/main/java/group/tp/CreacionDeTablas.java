@@ -24,6 +24,7 @@ public class CreacionDeTablas {
             sentencia = conexion.createStatement();
             String sql;
             sql = "CREATE TABLE IF NOT EXISTS `pronosticos` (\n"
+                    + " `idpronostico` int NOT NULL AUTO_INCREMENT,\n"
                     + "  `fase` varchar(1) NOT NULL,\n"
                     + "  `ronda` varchar(1) NOT NULL,\n"
                     + "  `participante` text NOT NULL,\n"
@@ -32,7 +33,8 @@ public class CreacionDeTablas {
                     + "  `gana1` text NOT NULL,\n"
                     + "  `empata` text NOT NULL,\n"
                     + "  `gana2` text NOT NULL,\n"
-                    + "  `equipo2` varchar(20) NOT NULL\n"
+                    + "  `equipo2` varchar(20) NOT NULL,\n"
+                    + " PRIMARY KEY (`idpronostico`)\n"
                     + "); ";
             sentencia.executeUpdate(sql);
 
