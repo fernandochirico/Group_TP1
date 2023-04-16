@@ -77,7 +77,8 @@ public class TP {
                     primerLinea = false;
                 } else {
                     i++;
-                    if ((l_resultado.getR_rondaNro().isEmpty())
+                    if ((l_resultado.getR_faseNro().isEmpty())
+                            || (l_resultado.getR_rondaNro().isEmpty())
                             || (l_resultado.getR_idPartido().isEmpty())
                             || (l_resultado.getR_equipo1Nombre().isEmpty())
                             || (l_resultado.getR_equipo1Goles().isEmpty())
@@ -157,7 +158,9 @@ public class TP {
                 for (Partido coleccionPartido : partidos) {
                     if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
                             && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())
-                            && coleccionPartido.getRondaNro().equals(resultado.getString("ronda"))) {
+                            && coleccionPartido.getRondaNro().equals(resultado.getString("ronda")) 
+                            && coleccionPartido.getFaseNro().equals(resultado.getString("fase")) )
+                    {
 
                         partido = coleccionPartido;
                     }
