@@ -184,10 +184,8 @@ public class TP {
                 if (setDeConsulta.getString("fase").equals(faseAnterior)) {
                     if (setDeConsulta.getString("ronda").equals(rondaAnterior)) {
                         if (setDeConsulta.getString("participante").equals(participanteAnterior)) {
-                            if (pronostico.puntos() == 0) { // chequeo para la suma de puntos extras por acertar  toda la ronda 
-                                                            // lo puedo hacer acá porque el SELECT está ordenado por fase + ronda + participante
-                                                            //al menos un pronostico no acertó
-                                flagPuntosPorRonda = 1; // no se suman puntos extras por ronda
+                            if (pronostico.puntos() == 0) {
+                                flagPuntosPorRonda = 1;
                             }
                             puntos = puntos + pronostico.puntos();
                         } else {
@@ -195,36 +193,55 @@ public class TP {
                             if (flagPuntosPorRonda == 0) {  // sumo puntos extra por ronda acertada
                                 puntos = puntos + puntosPorRonda;
                             }
+                            flagPuntosPorRonda = 0;
                             puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                             muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
                             participanteAnterior = setDeConsulta.getString("participante");
                             puntos = 0;
+                            if (pronostico.puntos() == 0) {
+                                flagPuntosPorRonda = 1;
+                            }
                             puntos = puntos + pronostico.puntos();
-                            flagPuntosPorRonda = 0;
                         }
                     } else {
                         // muestro puntos por cambio de Ronda
+                        if (flagPuntosPorRonda == 0) {  // sumo puntos extra por ronda acertada
+                            puntos = puntos + puntosPorRonda;
+                        }
                         puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                         muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
                         rondaAnterior = setDeConsulta.getString("ronda");
                         participanteAnterior = setDeConsulta.getString("participante");
-                        puntos = 0;
-                        puntos = puntos + pronostico.puntos();
                         flagPuntosPorRonda = 0;
+                        puntos = 0;
+                        if (pronostico.puntos() == 0) {
+                            flagPuntosPorRonda = 1;
+                        }
+                        puntos = puntos + pronostico.puntos();
                     }
                 } else {
                     // muestro puntos por cambio de Fase
+                    if (flagPuntosPorRonda == 0) {  // sumo puntos extra por ronda acertada
+                        puntos = puntos + puntosPorRonda;
+                    }
                     puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                     muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
                     faseAnterior = setDeConsulta.getString("fase");
                     rondaAnterior = setDeConsulta.getString("ronda");
                     participanteAnterior = setDeConsulta.getString("participante");
+                    flagPuntosPorRonda = 0;
                     puntos = 0;
+                    if (pronostico.puntos() == 0) {
+                        flagPuntosPorRonda = 1;
+                    }
                     puntos = puntos + pronostico.puntos();
                 }
 
             }
             // muestro puntos
+            if (flagPuntosPorRonda == 0) {  // sumo puntos extra por ronda acertada
+                puntos = puntos + puntosPorRonda;
+            }
             puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
             muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
             System.out.println("=======================================================");
