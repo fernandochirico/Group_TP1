@@ -30,8 +30,8 @@ public class TP {
     public static String USER1;
     public static String PASS1;
     public static String puntosPorAcierto;
-    public static String puntosPorRonda;
-    public static String puntosPorFase;
+    public static int puntosPorRonda;
+    public static int puntosPorFase;
 
     public static void main(String[] args) throws SQLException {
 
@@ -43,8 +43,6 @@ public class TP {
         String faseAnterior = "";
         String rondaAnterior = "";
         String participanteAnterior = "";
-        int puntosPorRonda = 0;
-        int puntosPorParticipante = 0;
 
         /////////////////////////////////
         // leemos archivo de configuracion
@@ -129,6 +127,8 @@ public class TP {
             ResultSet setDeConsulta = sentenciaDeBusqueda.executeQuery();
 
             int puntos = 0; // puntos por persona
+            int flagPuntosPorRonda = 0;
+            int flagPuntosPorFase = 0;
             boolean primerRegistroFase = true;
             boolean primerRegistroRonda = true;
             boolean primerRegistroParticipante = true;
@@ -158,9 +158,8 @@ public class TP {
                 for (Partido coleccionPartido : partidos) {
                     if (coleccionPartido.getEquipo1().getNombre().equals(equipo1.getNombre())
                             && coleccionPartido.getEquipo2().getNombre().equals(equipo2.getNombre())
-                            && coleccionPartido.getRondaNro().equals(setDeConsulta.getString("ronda")) 
-                            && coleccionPartido.getFaseNro().equals(setDeConsulta.getString("fase")) )
-                    {
+                            && coleccionPartido.getRondaNro().equals(setDeConsulta.getString("ronda"))
+                            && coleccionPartido.getFaseNro().equals(setDeConsulta.getString("fase"))) {
                         partido = coleccionPartido;
                     }
                 }
@@ -185,14 +184,21 @@ public class TP {
                 if (setDeConsulta.getString("fase").equals(faseAnterior)) {
                     if (setDeConsulta.getString("ronda").equals(rondaAnterior)) {
                         if (setDeConsulta.getString("participante").equals(participanteAnterior)) {
+                            if (pronostico.puntos() == 0) { // al menos un pronostico no acertó
+                                flagPuntosPorRonda = 1; // no se suman puntos extras por ronda
+                            }
                             puntos = puntos + pronostico.puntos();
                         } else {
                             // muestro puntos por cambio de Participante
+                            if (flagPuntosPorRonda == 0) {  // sumo puntos extra por ronda acertada
+                                puntos = puntos + puntosPorRonda;
+                            }
                             puntosTotalPorParticipante.put(participanteAnterior, puntosTotalPorParticipante.getOrDefault(participanteAnterior, 0) + puntos);
                             muestroPuntos(faseAnterior, rondaAnterior, participanteAnterior, puntos);
                             participanteAnterior = setDeConsulta.getString("participante");
                             puntos = 0;
                             puntos = puntos + pronostico.puntos();
+                            flagPuntosPorRonda = 0;
                         }
                     } else {
                         // muestro puntos por cambio de Ronda
@@ -202,6 +208,7 @@ public class TP {
                         participanteAnterior = setDeConsulta.getString("participante");
                         puntos = 0;
                         puntos = puntos + pronostico.puntos();
+                        flagPuntosPorRonda = 0;
                     }
                 } else {
                     // muestro puntos por cambio de Fase
@@ -244,16 +251,21 @@ public class TP {
             System.out.println(e.getMessage());
             System.exit(1);
         }
+        boolean basura = true;
         for (String lineaConfiguracion : lineasConfiguracion) {
             String[] campos = lineaConfiguracion.split(",");
-            host1 = campos[0];
-            puerto1 = campos[1];
-            nombreDB1 = campos[2];
-            USER1 = campos[3];
-            PASS1 = campos[4];
-            puntosPorAcierto = campos[5];
-            puntosPorRonda = campos[6];
-            puntosPorFase = campos[7];
+            if (basura) {
+                basura = false;
+            } else {
+                host1 = campos[0];
+                puerto1 = campos[1];
+                nombreDB1 = campos[2];
+                USER1 = campos[3];
+                PASS1 = campos[4];
+                puntosPorAcierto = campos[5];
+                puntosPorRonda = Integer.parseInt(campos[6]);
+                puntosPorFase = Integer.parseInt(campos[7]);
+            }
         }
     }
 
