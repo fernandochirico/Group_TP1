@@ -184,7 +184,9 @@ public class TP {
                 if (setDeConsulta.getString("fase").equals(faseAnterior)) {
                     if (setDeConsulta.getString("ronda").equals(rondaAnterior)) {
                         if (setDeConsulta.getString("participante").equals(participanteAnterior)) {
-                            if (pronostico.puntos() == 0) { // al menos un pronostico no acertó
+                            if (pronostico.puntos() == 0) { // chequeo para la suma de puntos extras por acertar  toda la ronda 
+                                                            // lo puedo hacer acá porque el SELECT está ordenado por fase + ronda + participante
+                                                            //al menos un pronostico no acertó
                                 flagPuntosPorRonda = 1; // no se suman puntos extras por ronda
                             }
                             puntos = puntos + pronostico.puntos();
