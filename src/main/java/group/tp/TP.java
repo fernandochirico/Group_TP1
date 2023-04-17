@@ -128,12 +128,10 @@ public class TP {
 
             int puntos = 0; // puntos por persona
             int flagPuntosPorRonda = 0;
-            int flagPuntosPorFase = 0;
             boolean primerRegistroFase = true;
             boolean primerRegistroRonda = true;
             boolean primerRegistroParticipante = true;
-            Map<String, Integer> falgAcertoTodasLasFases = new HashMap<>();  // por no estara en 0
-            Map<String, Integer> falgAcertoTodasLasRondas = new HashMap<>(); // por no estara en 0
+            Map<String, Integer> flagPuntosPorFase = new HashMap<>();  // por no estara en 0
             Map<String, Integer> puntosTotalPorParticipante = new HashMap<>();
 
             while (setDeConsulta.next()) {
