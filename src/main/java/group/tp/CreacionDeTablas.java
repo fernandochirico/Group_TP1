@@ -46,22 +46,22 @@ public class CreacionDeTablas {
             if (!resultado.next()) {
                 System.out.println("Generando registros en tabla pronosticos");
                 sql = "INSERT INTO `pronosticos` (`fase`, `ronda`, `participante`, `partidoid`, `equipo1`, `gana1`, `empata`, `gana2`, `equipo2`) VALUES\n"
-                        + "('1', '1', 'Mariana', '1', 'Argentina', 'x', '', '', 'Arabia Saudita'),\n"
+                        + "('1', '1', 'Mariana', '1', 'Argentina', '', 'x', '', 'Arabia Saudita'),\n"
                         + "('1', '1', 'Mariana', '2', 'Polonia', '', 'x', '', 'Mexico'),\n"
                         + "('1', '1', 'Mariana', '3', 'Argentina', 'x', '', '', 'Mexico'),\n"
                         + "('1', '1', 'Mariana', '4', 'Arabia Saudita', '', '', 'x', 'Polonia'),\n"
-                        + "('1', '1', 'Pedro', '1', 'Argentina', '', 'x', '', 'Arabia Saudita'),\n"
-                        + "('1', '1', 'Pedro', '2', 'Polonia', 'x', '', '', 'Mexico'),\n"
+                        + "('1', '1', 'Pedro', '1', 'Argentina', 'x', '', '', 'Arabia Saudita'),\n"
+                        + "('1', '1', 'Pedro', '2', 'Polonia', '', 'x', '', 'Mexico'),\n"
                         + "('1', '1', 'Pedro', '3', 'Argentina', 'x', '', '', 'Mexico'),\n"
-                        + "('1', '1', 'Pedro', '4', 'Arabia Saudita', 'x', '', '', 'Polonia'),\n"
-                        + "('1', '2', 'Mariana', '1', 'Argentina', 'x', '', '', 'Arabia Saudita'),\n"
+                        + "('1', '1', 'Pedro', '4', 'Arabia Saudita', '', 'x', '', 'Polonia'),\n"
+                        + "('1', '2', 'Mariana', '1', 'Argentina', '', 'x', '', 'Arabia Saudita'),\n"
                         + "('1', '2', 'Mariana', '2', 'Polonia', '', 'x', '', 'Mexico'),\n"
                         + "('1', '2', 'Mariana', '3', 'Argentina', 'x', '', '', 'Mexico'),\n"
                         + "('1', '2', 'Mariana', '4', 'Arabia Saudita', '', '', 'x', 'Polonia'),\n"
                         + "('1', '2', 'Pedro', '1', 'Argentina', '', 'x', '', 'Arabia Saudita'),\n"
-                        + "('1', '2', 'Pedro', '2', 'Polonia', 'x', '', '', 'Mexico'),\n"
-                        + "('1', '2', 'Pedro', '3', 'Argentina', '', '', 'x', 'Mexico'),\n"
-                        + "('1', '2', 'Pedro', '4', 'Arabia Saudita', 'x', '', '', 'Polonia'),\n"
+                        + "('1', '2', 'Pedro', '2', 'Polonia', '', 'x', '', 'Mexico'),\n"
+                        + "('1', '2', 'Pedro', '3', 'Argentina', 'x', '', '', 'Mexico'),\n"
+                        + "('1', '2', 'Pedro', '4', 'Arabia Saudita', '', '', 'x', 'Polonia'),\n"
                         + "('2', '1', 'Mariana', '1', 'Argentina', 'x', '', '', 'Arabia Saudita'),\n"
                         + "('2', '1', 'Mariana', '2', 'Polonia', '', 'x', '', 'Mexico'),\n"
                         + "('2', '1', 'Mariana', '3', 'Argentina', 'x', '', '', 'Mexico'),\n"
@@ -77,7 +77,7 @@ public class CreacionDeTablas {
                         + "('2', '2', 'Pedro', '1', 'Argentina', '', 'x', '', 'Arabia Saudita'),\n"
                         + "('2', '2', 'Pedro', '2', 'Polonia', 'x', '', '', 'Mexico'),\n"
                         + "('2', '2', 'Pedro', '3', 'Argentina', '', '', 'x', 'Mexico'),\n"
-                        + "('2', '2', 'Pedro', '4', 'Arabia Saudita', 'x', '', '', 'Polonia');";
+                        + "('2', '2', 'Pedro', '4', 'Arabia Saudita', '', '', 'x', 'Polonia');";
                 sentencia.execute(sql);
             }
             // Esto se utiliza par cerrar la conexión con la base de datos
