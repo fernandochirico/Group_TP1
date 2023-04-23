@@ -30,7 +30,7 @@ partidos y otro de resultados, el primero correspondiente a una ronda y el otro 
 los pronósticos de una persona (1). Cada ronda debe tener una cantidad fija de partidos, por
 ejemplo 2. 
 
-(1) Se considera una única ronda y un único participante en esta entrega
+<Sub>(1) Se considera una única ronda y un único participante en esta entrega</Sub>
 
 ```
 El programa debe:
@@ -77,7 +77,7 @@ pronósticos acertados.
 puntaje de una persona en 2 (dos) rondas consecutivas.
 ```
 
-### Ejemplo:
+**Ejemplo:**
 
 Archivo ***resultados.csv***
 
@@ -103,8 +103,10 @@ Archivo ***resultados.csv***
 
 Leyendo los 2 (dos) archivos, y suponiendo que cada resultado acertado suma 1 (un) punto, la
 salida del programa debe ser:
-### Mariana: 2
-### Pedro: 1
+
+**Mariana: 2**
+
+**Pedro: 1**
 
 ## Entrega 3
 En esta entrega se deben poder leer los pronósticos desde una base de datos MySQL. Por
